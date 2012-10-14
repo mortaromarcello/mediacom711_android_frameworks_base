@@ -26,6 +26,7 @@
 #include <hardware/hardware.h>
 #include <hardware/display.h>
 #include <gui/SurfaceComposerClient.h>
+#include <ui/DisplayDispatcher.h>
 #include <stdio.h>
 
 namespace android

@@ -49,6 +49,7 @@ public class QualcommSharedRIL extends RIL implements CommandsInterface {
     protected String[] mLastDataIface = new String[20];
     boolean RILJ_LOGV = true;
     boolean RILJ_LOGD = true;
+    boolean skipCdmaSubcription = needsOldRilFeature("skipCdmaSubcription");
 
     private final int RIL_INT_RADIO_OFF = 0;
     private final int RIL_INT_RADIO_UNAVALIABLE = 1;

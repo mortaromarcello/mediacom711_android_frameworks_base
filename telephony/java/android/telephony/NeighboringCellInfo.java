@@ -25,8 +25,7 @@ import static android.telephony.TelephonyManager.NETWORK_TYPE_UMTS;
 import static android.telephony.TelephonyManager.NETWORK_TYPE_HSDPA;
 import static android.telephony.TelephonyManager.NETWORK_TYPE_HSUPA;
 import static android.telephony.TelephonyManager.NETWORK_TYPE_HSPA;
-
-
+import static android.telephony.TelephonyManager.NETWORK_TYPE_HSPAP;
 
 /**
  * Represents the neighboring cell information, including

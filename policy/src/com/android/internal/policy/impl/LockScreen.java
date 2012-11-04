@@ -805,6 +805,15 @@ class LockScreen extends LinearLayout implements KeyguardScreen {
         if (action != null) {
             String uri = Settings.System.getString(context.getContentResolver(), action);
             if (uri != null && runAction(context, uri) != ACTION_RESULT_NOTRUN) {
+                long[] pattern = getLongPressVibePattern(context);
+                if (pattern != null) {
+                    Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+                    if (pattern.length == 1) {
+                        v.vibrate(pattern[0]);
+                    } else {
+                        v.vibrate(pattern, -1);
+                    }
+                }
                 return true;
             }
         }

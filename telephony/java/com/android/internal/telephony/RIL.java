@@ -3377,6 +3377,8 @@ public class RIL extends BaseCommands implements CommandsInterface {
            radioType = NETWORK_TYPE_HSUPA;
        } else if (radioString.equals("HSPA")) {
            radioType = NETWORK_TYPE_HSPA;
+       } else if (radioString.equals("HSPAP")) {
+           radioType = NETWORK_TYPE_HSPAP;
        } else {
            radioType = NETWORK_TYPE_UNKNOWN;
        }

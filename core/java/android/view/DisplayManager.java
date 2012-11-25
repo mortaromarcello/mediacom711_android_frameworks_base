@@ -38,42 +38,45 @@ import android.view.IDisplayManager;
  * @see android.content.Context#getSystemService
  * @see android.content.Context#DISPLAY_SERVICE
  */
-public class DisplayManager
+public class DisplayManager 
 {
-    private static final String TAG = "DisplayManager";
+	private static final String TAG = "DisplayManager";
     /**
      * Use this method to get the default Display object.
-     *
+     * 
      * @return default Display object
      */
     public static final String EXTRA_HDMISTATUS = "hdmistatus";
-
+    
     /**
      * Extra for {@link android.content.Intent#ACTION_TVDACSTATUS_CHANGED}:
      * integer containing the current health constant.
      */
+    public static final String EXTRA_TVSTATUS = "tvdacstatus";
+    
+    public static final int DISPLAY_DEVICE_ON					 = 0;
+	public static final int DISPLAY_DEVICE_OFF					 = 1;
+		
+	public static final int DISPLAY_DEVICE_PLUGIN			 	 = 0;
+	public static final int DISPLAY_DEVICE_PLUGOUT				 = 1;
 
-    public static final int DISPLAY_DEVICE_ON                    = 0;
-    public static final int DISPLAY_DEVICE_OFF                   = 1;
+	public static final int DISPLAY_OUTPUT_TYPE_NONE			 = 0;
+    public static final int DISPLAY_OUTPUT_TYPE_LCD 			 = 1;
+    public static final int DISPLAY_OUTPUT_TYPE_TV 				 = 2;
+    public static final int DISPLAY_OUTPUT_TYPE_HDMI			 = 3;
+    public static final int DISPLAY_OUTPUT_TYPE_VGA				 = 4;
+                                                            	 
+    public static final int DISPLAY_MODE_SINGLE					 = 0;
+	public static final int DISPLAY_MODE_DUALLCD				 = 1;
+	public static final int DISPLAY_MODE_DUALDIFF				 = 2;
+	public static final int DISPLAY_MODE_DUALSAME				 = 3;
 
-    public static final int DISPLAY_DEVICE_PLUGIN                = 0;
-    public static final int DISPLAY_DEVICE_PLUGOUT               = 1;
-
-    public static final int DISPLAY_OUTPUT_TYPE_NONE             = 0;
-    public static final int DISPLAY_OUTPUT_TYPE_LCD              = 1;
-    public static final int DISPLAY_OUTPUT_TYPE_HDMI             = 3;
-
-    public static final int DISPLAY_MODE_SINGLE                  = 0;
-    public static final int DISPLAY_MODE_DUALLCD                 = 1;
-    public static final int DISPLAY_MODE_DUALDIFF                = 2;
-    public static final int DISPLAY_MODE_DUALSAME                = 3;
-
-    public static final int DISPLAY_TVDAC_NONE                   = 0;
-    public static final int DISPLAY_TVDAC_YPBPR                  = 1;
-    public static final int DISPLAY_TVDAC_CVBS                   = 2;
-    public static final int DISPLAY_TVDAC_SVIDEO                 = 3;
-
-    public static final int DISPLAY_TVFORMAT_480I                = 0;
+	public static final int DISPLAY_TVDAC_NONE					 = 0;
+	public static final int DISPLAY_TVDAC_YPBPR					 = 1;
+	public static final int DISPLAY_TVDAC_CVBS					 = 2;
+	public static final int DISPLAY_TVDAC_SVIDEO				 = 3;
+	
+	public static final int	DISPLAY_TVFORMAT_480I                = 0;
     public static final int DISPLAY_TVFORMAT_576I                = 1;
     public static final int DISPLAY_TVFORMAT_480P                = 2;
     public static final int DISPLAY_TVFORMAT_576P                = 3;
@@ -96,274 +99,274 @@ public class DisplayManager
     public static final int DISPLAY_TVFORMAT_PAL_NC              = 0x14;
     public static final int DISPLAY_TVFORMAT_PAL_NC_SVIDEO       = 0x15;
     public static final int DISPLAY_TVFORMAT_PAL_NC_CVBS_SVIDEO  = 0x16;
-
-
-    public static final int DISPLAY_VGA_H1680_V1050              = 0x17;
-    public static final int DISPLAY_VGA_H1440_V900               = 0x18;
-    public static final int DISPLAY_VGA_H1360_V768               = 0x19;
-    public static final int DISPLAY_VGA_H1280_V1024              = 0x1a;
-    public static final int DISPLAY_VGA_H1024_V768               = 0x1b;
-    public static final int DISPLAY_VGA_H800_V600                = 0x1c;
-    public static final int DISPLAY_VGA_H640_V480                = 0x1d;
-    public static final int DISPLAY_VGA_H1440_V900_RB            = 0x1e;
-    public static final int DISPLAY_VGA_H1680_V1050_RB           = 0x1f;
-    public static final int DISPLAY_VGA_H1920_V1080_RB           = 0x20;
-    public static final int DISPLAY_VGA_H1920_V1080              = 0x21;
-    public static final int DISPLAY_VGA_H1280_V720               = 0x22;
-
+    
+    
+    public static final int DISPLAY_VGA_H1680_V1050    			 = 0x17;
+    public static final int DISPLAY_VGA_H1440_V900     			 = 0x18;
+    public static final int DISPLAY_VGA_H1360_V768     			 = 0x19;
+    public static final int DISPLAY_VGA_H1280_V1024    			 = 0x1a;
+    public static final int DISPLAY_VGA_H1024_V768     			 = 0x1b;
+    public static final int DISPLAY_VGA_H800_V600      			 = 0x1c;
+    public static final int DISPLAY_VGA_H640_V480      			 = 0x1d;
+    public static final int DISPLAY_VGA_H1440_V900_RB  			 = 0x1e;
+    public static final int DISPLAY_VGA_H1680_V1050_RB 			 = 0x1f;
+    public static final int DISPLAY_VGA_H1920_V1080_RB 			 = 0x20;
+    public static final int DISPLAY_VGA_H1920_V1080    			 = 0x21;
+    public static final int DISPLAY_VGA_H1280_V720     			 = 0x22;
+    
     private IDisplayManager mService;
     private IBinder mToken = new Binder();
-
-    public DisplayManager()
+	
+    public DisplayManager() 
     {
         mService = IDisplayManager.Stub.asInterface(ServiceManager.getService(Context.DISPLAY_SERVICE));
     }
-
-    public int getDisplayCount()
-    {
-        try
-        {
+    
+	public int getDisplayCount()
+	{
+		try 
+		{
             return  mService.getDisplayCount();
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public boolean getDisplayOpenStatus(int mDisplay)
-    {
-        try
-        {
+	}
+	
+	public boolean getDisplayOpenStatus(int mDisplay)
+	{
+		try 
+		{
             return  mService.getDisplayOpenStatus(mDisplay);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return false;
         }
-    }
+	}
 
-    public int getDisplayHotPlugStatus(int mDisplay)
-    {
-        try
-        {
+	public int getDisplayHotPlugStatus(int mDisplay)
+	{
+		try 
+		{
             return  mService.getDisplayHotPlugStatus(mDisplay);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int getDisplayOutputType(int mDisplay)
-    {
-        try
-        {
+	}
+	
+	public int getDisplayOutputType(int mDisplay)
+	{
+		try 
+		{
             return  mService.getDisplayOutputType(mDisplay);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int getDisplayOutputFormat(int mDisplay)
-    {
-        try
-        {
+	}
+	
+	public int getDisplayOutputFormat(int mDisplay)
+	{
+		try 
+		{
             return  mService.getDisplayOutputFormat(mDisplay);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int getDisplayWidth(int mDisplay)
-    {
-        try
-        {
+	}
+	
+	public int getDisplayWidth(int mDisplay)
+	{
+		try 
+		{
             return  mService.getDisplayWidth(mDisplay);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int getDisplayHeight(int mDisplay)
-    {
-        try
-        {
+	}
+	
+	public int getDisplayHeight(int mDisplay)
+	{
+		try 
+		{
             return  mService.getDisplayHeight(mDisplay);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int getDisplayPixelFormat(int mDisplay)
-    {
-        try
-        {
-            Log.d(TAG,"setDisplayParameter");
+	}
+	
+	public int getDisplayPixelFormat(int mDisplay)
+	{
+		try 
+		{
+			Log.d(TAG,"setDisplayParameter");
             return  mService.getDisplayPixelFormat(mDisplay);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
+	}
 
-    public int setDisplayParameter(int mDisplay,int param0,int param1)
-    {
-        try
-        {
-            Log.d(TAG,"setDisplayParameter");
+	public int setDisplayParameter(int mDisplay,int param0,int param1)
+	{
+		try 
+		{
+			Log.d(TAG,"setDisplayParameter");
             return  mService.setDisplayParameter(mDisplay,param0,param1);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int setDisplayMode(int mode)
-    {
-        try
-        {
-            Log.d(TAG,"setDisplayMode");
+	}
+	
+	public int setDisplayMode(int mode)
+	{
+		try 
+		{
+			Log.d(TAG,"setDisplayMode");
             return  mService.setDisplayMode(mode);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
+	}
 
-    public int getDisplayMode()
-    {
-        try
-        {
-            Log.d(TAG,"setDisplayParameter");
+	public int getDisplayMode()
+	{
+		try 
+		{
+			Log.d(TAG,"setDisplayParameter");
             return  mService.getDisplayMode();
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int setDisplayOutputType(int mDisplay,int type,int format)
-    {
-        try
-        {
-            Log.d(TAG,"setDisplayParameter");
+	}
+	
+	public int setDisplayOutputType(int mDisplay,int type,int format)
+	{
+		try 
+		{
+			Log.d(TAG,"setDisplayParameter");
             return  mService.setDisplayOutputType(mDisplay,type,format);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int openDisplay(int mDisplay)
-    {
-        try
-        {
-            Log.d(TAG,"setDisplayParameter");
+	}
+	
+	public int openDisplay(int mDisplay)
+	{
+		try 
+		{
+			Log.d(TAG,"setDisplayParameter");
             return  mService.openDisplay(mDisplay);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int closeDisplay(int mDisplay)
-    {
-        try
-        {
-            Log.d(TAG,"setDisplayParameter");
+	}
+	
+	public int closeDisplay(int mDisplay)
+	{
+		try 
+		{
+			Log.d(TAG,"setDisplayParameter");
             return  mService.closeDisplay(mDisplay);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int setDisplayMaster(int mDisplay)
-    {
-        try
-        {
-            Log.d(TAG,"setDisplayParameter");
+	}
+	
+	public int setDisplayMaster(int mDisplay)
+	{
+		try 
+		{
+			Log.d(TAG,"setDisplayParameter");
             return  mService.setDisplayMaster(mDisplay);
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
+	}
 
-    public int getDisplayMaster()
-    {
-        try
-        {
-            Log.d(TAG,"setDisplayParameter");
+	public int getDisplayMaster()
+	{
+		try 
+		{
+			Log.d(TAG,"setDisplayParameter");
             return  mService.getDisplayMaster();
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int getMaxWidthDisplay()
-    {
-        try
-        {
-            Log.d(TAG,"getMaxWidthDisplay");
-
+	}
+	
+	public int getMaxWidthDisplay()
+	{
+		try 
+		{
+			Log.d(TAG,"getMaxWidthDisplay");
+			
             return  mService.getMaxWidthDisplay();
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
-
-    public int getMaxHdmiMode()
-    {
-        try
-        {
-            Log.d(TAG,"getMaxHdmiMode");
-
+	}
+	
+	public int getMaxHdmiMode()
+	{
+		try 
+		{
+			Log.d(TAG,"getMaxHdmiMode");
+			
             return  mService.getMaxHdmiMode();
-        }
-        catch (RemoteException ex)
+        } 
+        catch (RemoteException ex) 
         {
             // system process is dead anyway.
             return -1;
         }
-    }
+	}
 }
 

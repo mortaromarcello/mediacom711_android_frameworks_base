@@ -115,8 +115,8 @@ public class DisplayController extends BroadcastReceiver {
 		private void onTvDacYPbPrPlugIn(Intent intent)
 		{
 			mDisplayManager.setDisplayParameter(0,DisplayManager.DISPLAY_OUTPUT_TYPE_LCD,0);
-	       		mDisplayManager.setDisplayParameter(1,DisplayManager.DISPLAY_OUTPUT_TYPE_TV,DisplayManager.DISPLAY_TVFORMAT_720P_60HZ);
-	       		mDisplayManager.setDisplayMode(DisplayManager.DISPLAY_MODE_DUALSAME);
+			mDisplayManager.setDisplayParameter(1,DisplayManager.DISPLAY_OUTPUT_TYPE_TV,DisplayManager.DISPLAY_TVFORMAT_720P_60HZ);
+			mDisplayManager.setDisplayMode(DisplayManager.DISPLAY_MODE_DUALSAME);
 			//MediaPlayer.setScreen(1);
 			//Camera.setCameraScreen(1);
 		}
@@ -136,14 +136,14 @@ public class DisplayController extends BroadcastReceiver {
 			
 			Slog.d(TAG,"onHdmiPlugOut Starting!\n");
 			mDisplayManager.setDisplayParameter(1,DisplayManager.DISPLAY_OUTPUT_TYPE_NONE,0);
-	      		mDisplayManager.setDisplayParameter(0,DisplayManager.DISPLAY_OUTPUT_TYPE_LCD,0);
-	        	mDisplayManager.setDisplayMode(DisplayManager.DISPLAY_MODE_SINGLE);
-	        	maxscreen = mDisplayManager.getMaxWidthDisplay();
-	        	MediaPlayer.setScreen(0);
+			mDisplayManager.setDisplayParameter(0,DisplayManager.DISPLAY_OUTPUT_TYPE_LCD,0);
+			mDisplayManager.setDisplayMode(DisplayManager.DISPLAY_MODE_SINGLE);
+			maxscreen = mDisplayManager.getMaxWidthDisplay();
+			MediaPlayer.setScreen(0);
 			SystemProperties.set("audio.routing", Integer.toString(AudioSystem.DEVICE_OUT_SPEAKER));
 			AudioSystem.setParameters("routing="+AudioSystem.DEVICE_OUT_SPEAKER);
 			//Camera.setCameraScreen(0);
-	        	//mDisplayManager.setDisplayOutputType(0,DisplayManager.DISPLAY_OUTPUT_TYPE_LCD,0);
+			//mDisplayManager.setDisplayOutputType(0,DisplayManager.DISPLAY_OUTPUT_TYPE_LCD,0);
 		}
 	
 		private void onTvDacPlugOut(Intent intent)
@@ -151,8 +151,8 @@ public class DisplayController extends BroadcastReceiver {
 			Slog.d(TAG,"onTvDacPlugOut Starting!\n");
 			mDisplayManager.setDisplayParameter(1,DisplayManager.DISPLAY_OUTPUT_TYPE_NONE,0);
 			mDisplayManager.setDisplayParameter(0,DisplayManager.DISPLAY_OUTPUT_TYPE_LCD,0);
-	        	mDisplayManager.setDisplayMode(DisplayManager.DISPLAY_MODE_SINGLE);
-	        	//MediaPlayer.setScreen(0);
+			mDisplayManager.setDisplayMode(DisplayManager.DISPLAY_MODE_SINGLE);
+			//MediaPlayer.setScreen(0);
 			//Camera.setCameraScreen(0);
 		}
 		
@@ -189,21 +189,14 @@ public class DisplayController extends BroadcastReceiver {
 				onTvDacPlugOut(intent);
 			}
 		}
-    }
-    
-    private class StatusBarTVDHotPlug implements DisplayHotPlugPolicy
-    {
-    	StatusBarTVDHotPlug()
-    	{
-    		
-    	}
+	}
 
-		public void onHdmiPlugChanged(Intent intent)
-		{
-		}
+	private class StatusBarTVDHotPlug implements DisplayHotPlugPolicy
+	{
+		StatusBarTVDHotPlug() {}
+
+		public void onHdmiPlugChanged(Intent intent) {}
 		
-		public void onTvDacPlugChanged(Intent intent)
-		{
-		}
-    }
+		public void onTvDacPlugChanged(Intent intent) {}
+	}
 }

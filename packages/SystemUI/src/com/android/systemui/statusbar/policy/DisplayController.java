@@ -50,7 +50,7 @@ public class DisplayController extends BroadcastReceiver {
 		filter.addAction(Intent.ACTION_TVDACSTATUS_CHANGED);
 		context.registerReceiver(this, filter);
 	}
-    
+
 	private void onHdmiPlugChanged(Intent intent)
 	{
 		mDispHotPolicy.onHdmiPlugChanged(intent);
@@ -61,8 +61,8 @@ public class DisplayController extends BroadcastReceiver {
 		mDispHotPolicy.onTvDacPlugChanged(intent);
 	}
 
-    public void onReceive(Context context, Intent intent) 
-    {
+	public void onReceive(Context context, Intent intent) 
+	{
 		final String action = intent.getAction();
 		if (action.equals(Intent.ACTION_HDMISTATUS_CHANGED)) 
 		{
@@ -73,15 +73,11 @@ public class DisplayController extends BroadcastReceiver {
 			onTvDacPlugChanged(intent);
 		}
 	}
-    
-    private class StatusBarPadHotPlug implements DisplayHotPlugPolicy
-    {
-    	StatusBarPadHotPlug() {}
 
 	private class StatusBarPadHotPlug implements DisplayHotPlugPolicy
 	{
 		statusBarPadHotPlug() {}
-    	
+
 		private void onHdmiPlugIn(Intent intent) 
 		{
 			int     maxscreen;

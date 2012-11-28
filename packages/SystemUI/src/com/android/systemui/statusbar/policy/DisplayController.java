@@ -80,10 +80,7 @@ public class DisplayController extends BroadcastReceiver {
     
     private class StatusBarPadHotPlug implements DisplayHotPlugPolicy
     {
-    	StatusBarPadHotPlug()
-    	{
-    		
-    	}
+    	StatusBarPadHotPlug() {}
     	
     	private void onHdmiPlugIn(Intent intent) 
 		{

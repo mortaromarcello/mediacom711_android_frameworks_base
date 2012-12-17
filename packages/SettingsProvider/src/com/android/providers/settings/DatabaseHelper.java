@@ -1545,7 +1545,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             loadIntegerSetting(stmt, Settings.System.POINTER_SPEED,
                     R.integer.def_pointer_speed);
 
-	    loadStringSetting(stmt, Settings.System.HDMI_RESOLUTION,
+	    	loadStringSetting(stmt, Settings.System.HDMI_RESOLUTION,
                     R.string.def_hdmi_resolution);
             
             loadStringSetting(stmt, Settings.System.ACCELEROMETER_COORDINATE,

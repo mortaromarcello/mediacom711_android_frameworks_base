@@ -235,7 +235,8 @@ public class SystemSensorManager extends SensorManager {
         void onSensorChangedLocked(Sensor sensor, float[] values, long[] timestamp, int accuracy) {
             SensorEvent t = sPool.getFromPool();
             final float[] v = t.values;
-String  str = Settings.System.getString(mContext.getContentResolver(), Settings.System.ACCELEROMETER_COORDINATE);
+			String  str = Settings.System.getString(mContext.getContentResolver(),
+					Settings.System.ACCELEROMETER_COORDINATE);
             int stype = sensor.getType();
             if(str!=null && str.equals("special")&&((stype == sensor.TYPE_ACCELEROMETER)||(stype == sensor.TYPE_GRAVITY))) {
             	    v[0] = values[1];

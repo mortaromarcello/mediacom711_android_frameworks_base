@@ -237,9 +237,6 @@ public class SystemSensorManager extends SensorManager {
             final float[] v = t.values;
 String  str = Settings.System.getString(mContext.getContentResolver(), Settings.System.ACCELEROMETER_COORDINATE);
             int stype = sensor.getType();
-            t.originalValue[0]	= values[0];
-            t.originalValue[1]	= values[1];
-            t.originalValue[2]	= values[2];
             if(str!=null && str.equals("special")&&((stype == sensor.TYPE_ACCELEROMETER)||(stype == sensor.TYPE_GRAVITY))) {
             	    v[0] = values[1];
             	    v[1] = -values[0];

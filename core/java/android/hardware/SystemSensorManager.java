@@ -261,8 +261,9 @@ public class SystemSensorManager extends SensorManager {
     /**
      * {@hide}
      */
-    public SystemSensorManager(Looper mainLooper) {
+    public SystemSensorManager(Context context, Looper mainLooper) {
         mMainLooper = mainLooper;
+        mContext = context;
 
         synchronized(sListeners) {
             if (!sSensorModuleInitialized) {

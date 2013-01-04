@@ -206,6 +206,8 @@ public class TabletStatusBar extends BaseStatusBar implements
 
     public Context getContext() { return mContext; }
 
+    private StorageManager mStorageManager;
+
     private Runnable mShowSearchPanel = new Runnable() {
         public void run() {
             showSearchPanel();
@@ -268,7 +270,6 @@ public class TabletStatusBar extends BaseStatusBar implements
     CustomTheme mCurrentTheme;
     private boolean mRecreating = false;
 
-    private StorageManager mStorageManager;
 
     protected void addPanelWindows() {
         final Context context = mContext;
